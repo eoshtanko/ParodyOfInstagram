@@ -13,8 +13,6 @@ class FeedViewController: UIViewController {
         posts = DataProviders.shared.postsDataProvider.feed()
         
         view.addSubview(feedTableView)
-        feedTableView.rowHeight = UITableView.automaticDimension
-        feedTableView.estimatedRowHeight = 600
     }
     
     override func viewDidLayoutSubviews() {
@@ -24,6 +22,7 @@ class FeedViewController: UIViewController {
 }
 
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
@@ -31,7 +30,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell", for: indexPath) as! FeedTableViewCell
         let post = posts[indexPath.row]
-        cell.configure(with: post)
+        cell.configure(with: post, index: indexPath)
         return cell
     }
 }

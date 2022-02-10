@@ -11,18 +11,25 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionTextView: UILabel!
     @IBOutlet weak var likeButtonView: UIButton!
     
+    static var likedPosts = Set<IndexPath>()
+    private var indexPath: IndexPath!
+    
     @IBAction func likeButtonAction(_ sender: Any) {
         if likeButtonView.tintColor == .systemBlue {
             amountOfLikeTextView.text = String(Int(amountOfLikeTextView.text!)! - 1)
             likeButtonView.tintColor = .lightGray
+            FeedTableViewCell.likedPosts.remove(indexPath)
         } else {
             amountOfLikeTextView.text = String(Int(amountOfLikeTextView.text!)! + 1)
             likeButtonView.tintColor = .systemBlue
+            FeedTableViewCell.likedPosts.insert(indexPath)
         }
     }
     
-    func configure(with post: Post) {
+    func configure(with post: Post, index: IndexPath) {
+        indexPath = index
         configureAutoresizingMask()
+        likeButtonView.tintColor = setTintColor()
         authorImageView.image = post.authorAvatar
         usernameTextView.text = post.authorUsername
         dateOfPublicationTextView.text = fromDateToString(from: post.createdTime)
@@ -32,13 +39,11 @@ class FeedTableViewCell: UITableViewCell {
         setNeedsLayout()
     }
     
-    private func configureAutoresizingMask() {
-        authorImageView.translatesAutoresizingMaskIntoConstraints = false
-        usernameTextView.translatesAutoresizingMaskIntoConstraints = false
-        dateOfPublicationTextView.translatesAutoresizingMaskIntoConstraints = false
-        postImageView.translatesAutoresizingMaskIntoConstraints = false
-        amountOfLikeTextView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+    private func setTintColor() -> UIColor {
+        if FeedTableViewCell.likedPosts.contains(indexPath) {
+            return UIColor.systemBlue
+        }
+        return UIColor.lightGray
     }
     
     private func fromDateToString(from date: Date) -> String {
@@ -54,5 +59,14 @@ class FeedTableViewCell: UITableViewCell {
         let dateSecondPart = timeFormatter.string(from: date)
         
         return dateFirstPart + " at " + dateSecondPart
+    }
+    
+    private func configureAutoresizingMask() {
+        authorImageView.translatesAutoresizingMaskIntoConstraints = false
+        usernameTextView.translatesAutoresizingMaskIntoConstraints = false
+        dateOfPublicationTextView.translatesAutoresizingMaskIntoConstraints = false
+        postImageView.translatesAutoresizingMaskIntoConstraints = false
+        amountOfLikeTextView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
     }
 }
