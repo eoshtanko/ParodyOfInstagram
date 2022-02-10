@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/DataProvider-Swift.h</key>
 		<data>
-		quAXM+tHoc9kjf7K1GXyxsDfZIo=
+		euJ2Z40nJLonNWc8bijGzfrj9K4=
 		</data>
 		<key>Headers/DataProvider.h</key>
 		<data>
@@ -42,15 +42,39 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Q7e6VXqAkmYyou3aZBmrPRkYxaY=
+		7iCJwnCABKEnmnxPz9q9MUSKHnc=
+		</data>
+		<key>Modules/DataProvider.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
+		<data>
+		k8zbnAI4pwGfjlFKu7TdEV5Y8RU=
+		</data>
+		<key>Modules/DataProvider.swiftmodule/Project/x86_64.swiftsourceinfo</key>
+		<data>
+		k8zbnAI4pwGfjlFKu7TdEV5Y8RU=
+		</data>
+		<key>Modules/DataProvider.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
+		<data>
+		RIVUuTEYx1XXQgWMCraUVDhhp3o=
+		</data>
+		<key>Modules/DataProvider.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
+		<data>
+		5/Y+A361d8FNgzN6R7M1VyOcdXg=
+		</data>
+		<key>Modules/DataProvider.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
+		<data>
+		unz+ZsxAh5EQb2Van3xmWHMDBJw=
 		</data>
 		<key>Modules/DataProvider.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		IiH2oa2m1fk0VW4a5UMn1eUg0oA=
+		RIVUuTEYx1XXQgWMCraUVDhhp3o=
+		</data>
+		<key>Modules/DataProvider.swiftmodule/x86_64.swiftinterface</key>
+		<data>
+		5/Y+A361d8FNgzN6R7M1VyOcdXg=
 		</data>
 		<key>Modules/DataProvider.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		nTJlbymgqOOeAoNwvkA1jDTSQgU=
+		unz+ZsxAh5EQb2Van3xmWHMDBJw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -292,7 +316,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			0QCSg9fF/CDFql+7ywie+FExTW4PMOVOgEpqClkqOi0=
+			4l9FCXd4rZTrwdkrqF62WyHBE3wivQCrK/PEY9ktf20=
 			</data>
 		</dict>
 		<key>Headers/DataProvider.h</key>
@@ -302,18 +326,60 @@
 			epYt+98oGfBDxBOlGZZKBqUeGBr2+H5iftHaWu+u2RA=
 			</data>
 		</dict>
+		<key>Modules/DataProvider.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			QOOL9x3WB7WeQzPa2eYqDPPBMvlgFTylgaYwgJ5HWF8=
+			</data>
+		</dict>
+		<key>Modules/DataProvider.swiftmodule/Project/x86_64.swiftsourceinfo</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			QOOL9x3WB7WeQzPa2eYqDPPBMvlgFTylgaYwgJ5HWF8=
+			</data>
+		</dict>
+		<key>Modules/DataProvider.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			LIIKEO7FloTMMSapkH74pKMohSxz69I9lKCNrvO/Tos=
+			</data>
+		</dict>
+		<key>Modules/DataProvider.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3xcq7H3vzo3Qiblh8kl4qGqeeJpewSq3vJChs7m8GNI=
+			</data>
+		</dict>
+		<key>Modules/DataProvider.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			FT/wOd/LwRkF0s1BtAi/ydJWaqiMOJZkNU7iCs9POYw=
+			</data>
+		</dict>
 		<key>Modules/DataProvider.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			AkITEPrVO/E/s2NWLlWT+53WCdNB9AGYhVR4MdtrCng=
+			LIIKEO7FloTMMSapkH74pKMohSxz69I9lKCNrvO/Tos=
+			</data>
+		</dict>
+		<key>Modules/DataProvider.swiftmodule/x86_64.swiftinterface</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3xcq7H3vzo3Qiblh8kl4qGqeeJpewSq3vJChs7m8GNI=
 			</data>
 		</dict>
 		<key>Modules/DataProvider.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8Isf+4rm9g79+/8GbzOoLtk7Zmrgxv/SVi2h4zvSrrk=
+			FT/wOd/LwRkF0s1BtAi/ydJWaqiMOJZkNU7iCs9POYw=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
