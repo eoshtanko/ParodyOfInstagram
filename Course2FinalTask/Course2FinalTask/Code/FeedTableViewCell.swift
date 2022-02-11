@@ -11,8 +11,10 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionTextView: UILabel!
     @IBOutlet weak var likeButtonView: UIButton!
     
-    static var likedPosts = Set<IndexPath>()
+    private static var likedPosts = Set<IndexPath>()
     private var indexPath: IndexPath!
+    private var controller: FeedViewController!
+    private var userIdentifier: User.Identifier!
     
     @IBAction func likeButtonAction(_ sender: Any) {
         if likeButtonView.tintColor == .systemBlue {
@@ -26,17 +28,36 @@ class FeedTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(with post: Post, index: IndexPath) {
+    func configure(with post: Post, index: IndexPath, instance: FeedViewController) {
         indexPath = index
+        controller = instance
+        userIdentifier = post.author
         configureAutoresizingMask()
+        setLikeGestureRecognizer()
+        setGoToProfileGestureRecognizer()
         likeButtonView.tintColor = setTintColor()
-        authorImageView.image = post.authorAvatar
-        usernameTextView.text = post.authorUsername
-        dateOfPublicationTextView.text = fromDateToString(from: post.createdTime)
-        postImageView.image = post.image
-        amountOfLikeTextView.text = String(post.likedByCount)
-        descriptionTextView.text = post.description
+        configureValues(with: post)
         setNeedsLayout()
+    }
+    
+    func setGoToProfileGestureRecognizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(goToProfile))
+        authorImageView.addGestureRecognizer(tap)
+    }
+    
+    @objc private func goToProfile() {
+        controller.userIdentifier = userIdentifier
+        controller.goToProfile()
+    }
+    
+    func setLikeGestureRecognizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(likeAnimation))
+        tap.numberOfTapsRequired = 2
+        postImageView.addGestureRecognizer(tap)
+    }
+    
+    @objc func likeAnimation() {
+        likeButtonAction(self)
     }
     
     private func setTintColor() -> UIColor {
@@ -44,6 +65,15 @@ class FeedTableViewCell: UITableViewCell {
             return UIColor.systemBlue
         }
         return UIColor.lightGray
+    }
+    
+    private func configureValues(with post: Post) {
+        authorImageView.image = post.authorAvatar
+        usernameTextView.text = post.authorUsername
+        dateOfPublicationTextView.text = fromDateToString(from: post.createdTime)
+        postImageView.image = post.image
+        amountOfLikeTextView.text = String(post.likedByCount)
+        descriptionTextView.text = post.description
     }
     
     private func fromDateToString(from date: Date) -> String {
