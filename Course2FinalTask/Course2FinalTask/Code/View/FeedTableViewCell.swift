@@ -10,6 +10,7 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var amountOfLikeTextView: UILabel!
     @IBOutlet weak var descriptionTextView: UILabel!
     @IBOutlet weak var likeButtonView: UIButton!
+    @IBOutlet weak var likeImageView: UIImageView!
     
     private static var likedPosts = Set<IndexPath>()
     private var indexPath: IndexPath!
@@ -18,13 +19,9 @@ class FeedTableViewCell: UITableViewCell {
     
     @IBAction func likeButtonAction(_ sender: Any) {
         if likeButtonView.tintColor == .systemBlue {
-            amountOfLikeTextView.text = String(Int(amountOfLikeTextView.text!)! - 1)
-            likeButtonView.tintColor = .lightGray
-            FeedTableViewCell.likedPosts.remove(indexPath)
+            dislike()
         } else {
-            amountOfLikeTextView.text = String(Int(amountOfLikeTextView.text!)! + 1)
-            likeButtonView.tintColor = .systemBlue
-            FeedTableViewCell.likedPosts.insert(indexPath)
+            like()
         }
     }
     
@@ -40,6 +37,59 @@ class FeedTableViewCell: UITableViewCell {
         setNeedsLayout()
     }
     
+    private func like() {
+        if (!FeedTableViewCell.likedPosts.contains(indexPath)) {
+            amountOfLikeTextView.text = String(Int(amountOfLikeTextView.text!)! + 1)
+            likeButtonView.tintColor = .systemBlue
+            FeedTableViewCell.likedPosts.insert(indexPath)
+        }
+    }
+    
+    private func dislike() {
+        if (FeedTableViewCell.likedPosts.contains(indexPath)) {
+            amountOfLikeTextView.text = String(Int(amountOfLikeTextView.text!)! - 1)
+            likeButtonView.tintColor = .lightGray
+            FeedTableViewCell.likedPosts.remove(indexPath)
+        }
+    }
+    
+    private func setLikeGestureRecognizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapLikeAction))
+        tap.numberOfTapsRequired = 2
+        postImageView.addGestureRecognizer(tap)
+    }
+
+    @objc private func doubleTapLikeAction() {
+        likeAnimation()
+        like()
+    }
+    
+    private func likeAnimation() {
+        CATransaction.begin()
+        let animation = CAKeyframeAnimation(keyPath: "opacity")
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        animation.values = [0, 1, 1]
+        animation.keyTimes = [0, 0.03, 1]
+        animation.duration = 0.3
+        CATransaction.setCompletionBlock {
+            self.gettingSmallerAnimation()
+            self.likeImageView.layer.opacity = 0
+        }
+        self.likeImageView.layer.opacity = 1
+        likeImageView.layer.add(animation, forKey: "appear")
+        CATransaction.commit()
+    }
+    
+    private func gettingSmallerAnimation() {
+        let gettingSmallerAnimation = CABasicAnimation(keyPath: "opacity")
+        gettingSmallerAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        gettingSmallerAnimation.fromValue = 1
+        gettingSmallerAnimation.toValue = 0
+        gettingSmallerAnimation.duration = 0.3
+        gettingSmallerAnimation.isRemovedOnCompletion = false
+        likeImageView.layer.add(gettingSmallerAnimation, forKey: "disappear")
+    }
+    
     func setGoToProfileGestureRecognizer() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(goToProfile))
         authorImageView.addGestureRecognizer(tap)
@@ -48,16 +98,6 @@ class FeedTableViewCell: UITableViewCell {
     @objc private func goToProfile() {
         controller.userIdentifier = userIdentifier
         controller.goToProfile()
-    }
-    
-    func setLikeGestureRecognizer() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(likeAnimation))
-        tap.numberOfTapsRequired = 2
-        postImageView.addGestureRecognizer(tap)
-    }
-    
-    @objc func likeAnimation() {
-        likeButtonAction(self)
     }
     
     private func setTintColor() -> UIColor {
@@ -83,7 +123,7 @@ class FeedTableViewCell: UITableViewCell {
         relativeDateFormatter.locale = Locale(identifier: "en_GB")
         relativeDateFormatter.doesRelativeDateFormatting = true
         let dateFirstPart = relativeDateFormatter.string(from: date)
-
+        
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm:ss a"
         let dateSecondPart = timeFormatter.string(from: date)

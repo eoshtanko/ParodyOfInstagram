@@ -6,14 +6,11 @@ class FeedViewController: UIViewController {
     @IBOutlet weak var feedTableView: UITableView!
     
     var posts: [Post] = []
-    
     var userIdentifier: User.Identifier?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         posts = DataProviders.shared.postsDataProvider.feed()
-        
         view.addSubview(feedTableView)
     }
     

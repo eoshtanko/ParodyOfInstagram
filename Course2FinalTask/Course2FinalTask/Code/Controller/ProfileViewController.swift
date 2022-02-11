@@ -20,6 +20,12 @@ class ProfileViewController: UIViewController {
             currentProfile = DataProviders.shared.usersDataProvider.currentUser()
         }
         configureValues(with: currentProfile)
+        configureProfileImageView()
+    }
+    
+    private func configureProfileImageView() {
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
+        profileImageView.clipsToBounds = true
     }
     
     private func configureValues(with profile: User) {

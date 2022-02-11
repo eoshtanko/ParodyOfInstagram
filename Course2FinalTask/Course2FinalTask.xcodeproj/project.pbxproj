@@ -57,6 +57,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		342A5F6127B64D840071B16E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3425ED4127B3A59100FCFD2B /* Main.storyboard */,
+				3425ED3F27B3A58200FCFD2B /* Launch Screen.storyboard */,
+				341E312427B3CCA40092BB5C /* FeedTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		342A5F6227B64DA00071B16E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				342A5F5F27B597410071B16E /* ProfileViewController.swift */,
+				341E312027B3CC2E0092BB5C /* FeedViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		74B7924B202B3254006BCB41 = {
 			isa = PBXGroup;
 			children = (
@@ -87,12 +106,8 @@
 		74B7927B202B3427006BCB41 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				74B79257202B3254006BCB41 /* AppDelegate.swift */,
-				3425ED3F27B3A58200FCFD2B /* Launch Screen.storyboard */,
-				3425ED4127B3A59100FCFD2B /* Main.storyboard */,
-				341E312027B3CC2E0092BB5C /* FeedViewController.swift */,
-				341E312427B3CCA40092BB5C /* FeedTableViewCell.swift */,
-				342A5F5F27B597410071B16E /* ProfileViewController.swift */,
+				342A5F6227B64DA00071B16E /* Controller */,
+				342A5F6127B64D840071B16E /* View */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -108,6 +123,7 @@
 		74B7927D202B3434006BCB41 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				74B79257202B3254006BCB41 /* AppDelegate.swift */,
 				74B79263202B3254006BCB41 /* Info.plist */,
 			);
 			path = "Supporting Files";
