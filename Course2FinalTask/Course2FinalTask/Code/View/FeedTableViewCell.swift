@@ -4,33 +4,34 @@ import DataProvider
 class FeedTableViewCell: UITableViewCell {
     
     @IBOutlet weak var authorImageView: UIImageView!
-    @IBOutlet weak var usernameTextView: UILabel!
+    @IBOutlet weak var usernameLabelView: UILabel!
     @IBOutlet weak var dateOfPublicationTextView: UILabel!
     @IBOutlet weak var postImageView: UIImageView!
-    @IBOutlet weak var amountOfLikeTextView: UILabel!
-    @IBOutlet weak var descriptionTextView: UILabel!
+    @IBOutlet weak var likesLabelView: UILabel!
+    @IBOutlet weak var amountOfLikeLabelView: UILabel!
+    @IBOutlet weak var descriptionLabelView: UILabel!
     @IBOutlet weak var likeButtonView: UIButton!
     @IBOutlet weak var likeImageView: UIImageView!
     
-    private static var likedPosts = Set<IndexPath>()
-    private var indexPath: IndexPath!
+    private var post: Post!
     private var controller: FeedViewController!
     private var userIdentifier: User.Identifier!
     
     @IBAction func likeButtonAction(_ sender: Any) {
         if likeButtonView.tintColor == .systemBlue {
-            dislike()
+            unlike()
         } else {
             like()
         }
     }
     
-    func configure(with post: Post, index: IndexPath, instance: FeedViewController) {
-        indexPath = index
+    func configure(with post: Post, instance: FeedViewController) {
+        self.post = post
         controller = instance
         userIdentifier = post.author
         configureAutoresizingMask()
         setLikeGestureRecognizer()
+        setGoToThoseWhoLikedGestureRecognizer()
         setGoToProfileGestureRecognizer()
         likeButtonView.tintColor = setTintColor()
         configureValues(with: post)
@@ -38,18 +39,16 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     private func like() {
-        if (!FeedTableViewCell.likedPosts.contains(indexPath)) {
-            amountOfLikeTextView.text = String(Int(amountOfLikeTextView.text!)! + 1)
+        if (!post.currentUserLikesThisPost && DataProviders.shared.postsDataProvider.likePost(with: post.id)) {
+            amountOfLikeLabelView.text = String(Int(amountOfLikeLabelView.text!)! + 1)
             likeButtonView.tintColor = .systemBlue
-            FeedTableViewCell.likedPosts.insert(indexPath)
         }
     }
     
-    private func dislike() {
-        if (FeedTableViewCell.likedPosts.contains(indexPath)) {
-            amountOfLikeTextView.text = String(Int(amountOfLikeTextView.text!)! - 1)
+    private func unlike() {
+        if (post.currentUserLikesThisPost && DataProviders.shared.postsDataProvider.unlikePost(with: post.id)) {
+            amountOfLikeLabelView.text = String(Int(amountOfLikeLabelView.text!)! - 1)
             likeButtonView.tintColor = .lightGray
-            FeedTableViewCell.likedPosts.remove(indexPath)
         }
     }
     
@@ -69,7 +68,7 @@ class FeedTableViewCell: UITableViewCell {
         let animation = CAKeyframeAnimation(keyPath: "opacity")
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         animation.values = [0, 1, 1]
-        animation.keyTimes = [0, 0.03, 1]
+        animation.keyTimes = [0, 0.033, 1]
         animation.duration = 0.3
         CATransaction.setCompletionBlock {
             self.gettingSmallerAnimation()
@@ -91,8 +90,10 @@ class FeedTableViewCell: UITableViewCell {
     }
     
     func setGoToProfileGestureRecognizer() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(goToProfile))
-        authorImageView.addGestureRecognizer(tap)
+        let tapOnAuthorImage = UITapGestureRecognizer(target: self, action: #selector(goToProfile))
+        authorImageView.addGestureRecognizer(tapOnAuthorImage)
+        let tapOnUsername = UITapGestureRecognizer(target: self, action: #selector(goToProfile))
+        usernameLabelView.addGestureRecognizer(tapOnUsername)
     }
     
     @objc private func goToProfile() {
@@ -100,8 +101,20 @@ class FeedTableViewCell: UITableViewCell {
         controller.goToProfile()
     }
     
+    func setGoToThoseWhoLikedGestureRecognizer() {
+        let tapOnLikesLabel = UITapGestureRecognizer(target: self, action: #selector(goToThoseWhoLiked))
+        likesLabelView.addGestureRecognizer(tapOnLikesLabel)
+        let tapOnLikesCount = UITapGestureRecognizer(target: self, action: #selector(goToThoseWhoLiked))
+        amountOfLikeLabelView.addGestureRecognizer(tapOnLikesCount)
+    }
+    
+    @objc private func goToThoseWhoLiked() {
+        controller.postIdentifier = post.id
+        controller.goToThoseWhoLiked()
+    }
+    
     private func setTintColor() -> UIColor {
-        if FeedTableViewCell.likedPosts.contains(indexPath) {
+        if post.currentUserLikesThisPost {
             return UIColor.systemBlue
         }
         return UIColor.lightGray
@@ -109,11 +122,11 @@ class FeedTableViewCell: UITableViewCell {
     
     private func configureValues(with post: Post) {
         authorImageView.image = post.authorAvatar
-        usernameTextView.text = post.authorUsername
+        usernameLabelView.text = post.authorUsername
         dateOfPublicationTextView.text = fromDateToString(from: post.createdTime)
         postImageView.image = post.image
-        amountOfLikeTextView.text = String(post.likedByCount)
-        descriptionTextView.text = post.description
+        amountOfLikeLabelView.text = String(post.likedByCount)
+        descriptionLabelView.text = post.description
     }
     
     private func fromDateToString(from date: Date) -> String {
@@ -133,10 +146,10 @@ class FeedTableViewCell: UITableViewCell {
     
     private func configureAutoresizingMask() {
         authorImageView.translatesAutoresizingMaskIntoConstraints = false
-        usernameTextView.translatesAutoresizingMaskIntoConstraints = false
+        usernameLabelView.translatesAutoresizingMaskIntoConstraints = false
         dateOfPublicationTextView.translatesAutoresizingMaskIntoConstraints = false
         postImageView.translatesAutoresizingMaskIntoConstraints = false
-        amountOfLikeTextView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+        amountOfLikeLabelView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabelView.translatesAutoresizingMaskIntoConstraints = false
     }
 }
