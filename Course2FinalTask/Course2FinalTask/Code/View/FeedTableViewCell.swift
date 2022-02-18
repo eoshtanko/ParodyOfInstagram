@@ -18,7 +18,7 @@ class FeedTableViewCell: UITableViewCell {
     private var userIdentifier: User.Identifier!
     
     @IBAction func likeButtonAction(_ sender: Any) {
-        if likeButtonView.tintColor == .systemBlue {
+        if post.currentUserLikesThisPost {
             unlike()
         } else {
             like()
@@ -40,6 +40,7 @@ class FeedTableViewCell: UITableViewCell {
     
     private func like() {
         if (!post.currentUserLikesThisPost && DataProviders.shared.postsDataProvider.likePost(with: post.id)) {
+            post.currentUserLikesThisPost = true
             amountOfLikeLabelView.text = String(Int(amountOfLikeLabelView.text!)! + 1)
             likeButtonView.tintColor = .systemBlue
         }
@@ -47,6 +48,7 @@ class FeedTableViewCell: UITableViewCell {
     
     private func unlike() {
         if (post.currentUserLikesThisPost && DataProviders.shared.postsDataProvider.unlikePost(with: post.id)) {
+            post.currentUserLikesThisPost = false
             amountOfLikeLabelView.text = String(Int(amountOfLikeLabelView.text!)! - 1)
             likeButtonView.tintColor = .lightGray
         }
@@ -57,36 +59,24 @@ class FeedTableViewCell: UITableViewCell {
         tap.numberOfTapsRequired = 2
         postImageView.addGestureRecognizer(tap)
     }
-
+    
     @objc private func doubleTapLikeAction() {
         likeAnimation()
         like()
     }
     
     private func likeAnimation() {
-        CATransaction.begin()
-        let animation = CAKeyframeAnimation(keyPath: "opacity")
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        animation.values = [0, 1, 1]
-        animation.keyTimes = [0, 0.033, 1]
-        animation.duration = 0.3
-        CATransaction.setCompletionBlock {
-            self.gettingSmallerAnimation()
-            self.likeImageView.layer.opacity = 0
+        UIView.animate(withDuration: 0.1, delay: 0, options: [.curveLinear], animations: {
+            self.likeImageView.layer.opacity = 1
+        }){_ in
+            self.likeImageView.layer.opacity = 1
+            UIView.animate(withDuration: 0.3, delay: 0.2, options: [.curveEaseOut], animations: {
+                self.likeImageView.layer.opacity = 0
+            }) {
+                _ in
+                self.likeImageView.layer.opacity = 0
+            }
         }
-        self.likeImageView.layer.opacity = 1
-        likeImageView.layer.add(animation, forKey: "appear")
-        CATransaction.commit()
-    }
-    
-    private func gettingSmallerAnimation() {
-        let gettingSmallerAnimation = CABasicAnimation(keyPath: "opacity")
-        gettingSmallerAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
-        gettingSmallerAnimation.fromValue = 1
-        gettingSmallerAnimation.toValue = 0
-        gettingSmallerAnimation.duration = 0.3
-        gettingSmallerAnimation.isRemovedOnCompletion = false
-        likeImageView.layer.add(gettingSmallerAnimation, forKey: "disappear")
     }
     
     func setGoToProfileGestureRecognizer() {

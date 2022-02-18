@@ -33,7 +33,7 @@ class FeedViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (sender! as! String) == "Profile info" {
             if let destination = segue.destination as? ProfileViewController {
-                destination.userIdentifier = userIdentifier
+                destination.currentProfile = DataProviders.shared.usersDataProvider.user(with: userIdentifier!)
             }
         } else {
             if let destination = segue.destination as? UserListViewController {
@@ -50,7 +50,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "feedCell", for: indexPath) as! FeedTableViewCell
         let post = posts[indexPath.row]

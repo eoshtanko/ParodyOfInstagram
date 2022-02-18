@@ -12,9 +12,10 @@
 		3425ED4027B3A58200FCFD2B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3425ED3F27B3A58200FCFD2B /* Launch Screen.storyboard */; };
 		3425ED4227B3A59100FCFD2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3425ED4127B3A59100FCFD2B /* Main.storyboard */; };
 		342A5F6027B597410071B16E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342A5F5F27B597410071B16E /* ProfileViewController.swift */; };
-		342A5F6427B680650071B16E /* UserListViewController..swift in Sources */ = {isa = PBXBuildFile; fileRef = 342A5F6327B680650071B16E /* UserListViewController..swift */; };
+		342A5F6427B680650071B16E /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342A5F6327B680650071B16E /* UserListViewController.swift */; };
 		34B304A727B8264300DEC7CA /* PostCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B304A627B8264300DEC7CA /* PostCollectionViewCell.xib */; };
 		34B304A927B826B300DEC7CA /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B304A827B826B300DEC7CA /* PostCollectionViewCell.swift */; };
+		34F6E5F827BF7167003D3FC8 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F6E5F727BF7167003D3FC8 /* ProfileHeaderView.swift */; };
 		74B79258202B3254006BCB41 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B79257202B3254006BCB41 /* AppDelegate.swift */; };
 		74B7925F202B3254006BCB41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74B7925E202B3254006BCB41 /* Assets.xcassets */; };
 		C09E8B02262877CD00D56D86 /* DataProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C09E8B00262877C600D56D86 /* DataProvider.framework */; };
@@ -41,9 +42,10 @@
 		3425ED3F27B3A58200FCFD2B /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		3425ED4127B3A59100FCFD2B /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		342A5F5F27B597410071B16E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		342A5F6327B680650071B16E /* UserListViewController..swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController..swift; sourceTree = "<group>"; };
+		342A5F6327B680650071B16E /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
 		34B304A627B8264300DEC7CA /* PostCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCollectionViewCell.xib; sourceTree = "<group>"; };
 		34B304A827B826B300DEC7CA /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
+		34F6E5F727BF7167003D3FC8 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		74B79254202B3254006BCB41 /* Course2FinalTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Course2FinalTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74B79257202B3254006BCB41 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74B7925E202B3254006BCB41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				341E312427B3CCA40092BB5C /* FeedTableViewCell.swift */,
 				34B304A627B8264300DEC7CA /* PostCollectionViewCell.xib */,
 				34B304A827B826B300DEC7CA /* PostCollectionViewCell.swift */,
+				34F6E5F727BF7167003D3FC8 /* ProfileHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -79,7 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				341E312027B3CC2E0092BB5C /* FeedViewController.swift */,
-				342A5F6327B680650071B16E /* UserListViewController..swift */,
+				342A5F6327B680650071B16E /* UserListViewController.swift */,
 				342A5F5F27B597410071B16E /* ProfileViewController.swift */,
 			);
 			path = Controller;
@@ -217,8 +220,9 @@
 				74B79258202B3254006BCB41 /* AppDelegate.swift in Sources */,
 				34B304A927B826B300DEC7CA /* PostCollectionViewCell.swift in Sources */,
 				342A5F6027B597410071B16E /* ProfileViewController.swift in Sources */,
+				34F6E5F827BF7167003D3FC8 /* ProfileHeaderView.swift in Sources */,
 				341E312527B3CCA40092BB5C /* FeedTableViewCell.swift in Sources */,
-				342A5F6427B680650071B16E /* UserListViewController..swift in Sources */,
+				342A5F6427B680650071B16E /* UserListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +354,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Course2FinalTask/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.e-legion.Course2FinalTask";
+				PRODUCT_BUNDLE_IDENTIFIER = eoshtanko.Course2FinalTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -372,7 +376,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Course2FinalTask/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.e-legion.Course2FinalTask";
+				PRODUCT_BUNDLE_IDENTIFIER = eoshtanko.Course2FinalTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

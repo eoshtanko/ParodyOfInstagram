@@ -8,7 +8,7 @@ class PostCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         photoImageView.frame = bounds
     }
-
+    
     func configure(with postImage: UIImage?) {
         if let postImage = postImage {
             photoImageView.image = postImage

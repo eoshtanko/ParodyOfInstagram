@@ -38,7 +38,7 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToLikedUser", sender: nil)
         usersListTableView.deselectRow(at: indexPath, animated: true)
@@ -48,7 +48,7 @@ extension UserListViewController: UITableViewDelegate, UITableViewDataSource {
         if let destination = segue.destination as? ProfileViewController {
             let profile = users?[usersListTableView.indexPathForSelectedRow!.row]
             self.navigationItem.backButtonTitle = self.navigationItem.title
-            destination.userIdentifier = profile?.id
+            destination.currentProfile = DataProviders.shared.usersDataProvider.user(with: profile!.id)
         }
     }
     
